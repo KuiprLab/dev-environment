@@ -7,3 +7,6 @@
 [submodule "app-hello-world"]
 	path = app-hello-world
 	url = https://github.com/KuiprLab/app-hello-world.git
+[submodule "apps/app-hello-world"]
+	path = apps/app-hello-world
+	url = https://github.com/KuiprLab/app-hello-world.git
