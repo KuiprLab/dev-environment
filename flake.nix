@@ -107,8 +107,8 @@
           shellHook = ''
             git secret tell -m 2> /dev/null
             # Set up environment variables
-            export KUBECONFIG="$HOME/Developer/Homelab/infra-sol/kubeconfig"
-            export TALOSCONFIG="$HOME/Developer/Homelab/infra-sol/taloscconfig"
+            export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
+            export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
 
             # Initialize credential variables
             export GITHUB_USERNAME=""
