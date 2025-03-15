@@ -127,8 +127,7 @@
               source "$CREDS_FILE"
             fi
 
-            # To manually refresh credentials, run:
-            # echo "To manually refresh credentials, run: source \$(fetch-github-creds)"
+            # "To manually refresh credentials, run: source $(fetch-github-creds)"
           '';
         };
       }

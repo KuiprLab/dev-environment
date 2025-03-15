@@ -43,7 +43,7 @@ NIX_CC='/nix/store/x8j5wizxn1qwa0zj3a4rbmipigl614jv-clang-wrapper-19.1.7'
 export NIX_CC
 NIX_CC_WRAPPER_TARGET_HOST_aarch64_apple_darwin='1'
 export NIX_CC_WRAPPER_TARGET_HOST_aarch64_apple_darwin
-NIX_CFLAGS_COMPILE=' -frandom-seed=3rljjyxfmi -isystem /nix/store/yhykv5iafas7lp327w3xkj1gxkhifcbk-jq-1.7.1-dev/include -isystem /nix/store/yd23hbj32bmd7r6ldycf1986n4rx1gh5-libcxx-19.1.7-dev/include -isystem /nix/store/rlkw0j8gkrxwcd18sr8majkygv90szpc-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/5b8355vg9hbmvyjgxdsn7mg0jq43zh7x-libiconv-109-dev/include -isystem /nix/store/rsczgvjhhaz680hlsyvsj66vph1bj7bx-libresolv-83-dev/include -isystem /nix/store/z7d3wjrb96dbxihk9r6aj1q7bbr8w26n-libsbuf-14.1.0-dev/include -isystem /nix/store/0dxlq8pd8vbrjmq482bwn3bz1yf5v5sq-cups-headers-2.4.11/include -isystem /nix/store/yhykv5iafas7lp327w3xkj1gxkhifcbk-jq-1.7.1-dev/include -isystem /nix/store/yd23hbj32bmd7r6ldycf1986n4rx1gh5-libcxx-19.1.7-dev/include -isystem /nix/store/rlkw0j8gkrxwcd18sr8majkygv90szpc-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/5b8355vg9hbmvyjgxdsn7mg0jq43zh7x-libiconv-109-dev/include -isystem /nix/store/rsczgvjhhaz680hlsyvsj66vph1bj7bx-libresolv-83-dev/include -isystem /nix/store/z7d3wjrb96dbxihk9r6aj1q7bbr8w26n-libsbuf-14.1.0-dev/include -isystem /nix/store/0dxlq8pd8vbrjmq482bwn3bz1yf5v5sq-cups-headers-2.4.11/include'
+NIX_CFLAGS_COMPILE=' -frandom-seed=7bnycwh6wh -isystem /nix/store/yhykv5iafas7lp327w3xkj1gxkhifcbk-jq-1.7.1-dev/include -isystem /nix/store/yd23hbj32bmd7r6ldycf1986n4rx1gh5-libcxx-19.1.7-dev/include -isystem /nix/store/rlkw0j8gkrxwcd18sr8majkygv90szpc-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/5b8355vg9hbmvyjgxdsn7mg0jq43zh7x-libiconv-109-dev/include -isystem /nix/store/rsczgvjhhaz680hlsyvsj66vph1bj7bx-libresolv-83-dev/include -isystem /nix/store/z7d3wjrb96dbxihk9r6aj1q7bbr8w26n-libsbuf-14.1.0-dev/include -isystem /nix/store/0dxlq8pd8vbrjmq482bwn3bz1yf5v5sq-cups-headers-2.4.11/include -isystem /nix/store/yhykv5iafas7lp327w3xkj1gxkhifcbk-jq-1.7.1-dev/include -isystem /nix/store/yd23hbj32bmd7r6ldycf1986n4rx1gh5-libcxx-19.1.7-dev/include -isystem /nix/store/rlkw0j8gkrxwcd18sr8majkygv90szpc-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/5b8355vg9hbmvyjgxdsn7mg0jq43zh7x-libiconv-109-dev/include -isystem /nix/store/rsczgvjhhaz680hlsyvsj66vph1bj7bx-libresolv-83-dev/include -isystem /nix/store/z7d3wjrb96dbxihk9r6aj1q7bbr8w26n-libsbuf-14.1.0-dev/include -isystem /nix/store/0dxlq8pd8vbrjmq482bwn3bz1yf5v5sq-cups-headers-2.4.11/include'
 export NIX_CFLAGS_COMPILE
 NIX_DONT_SET_RPATH='1'
 export NIX_DONT_SET_RPATH
@@ -221,8 +221,7 @@ if [[ -f "$CREDS_FILE" ]]; then
   source "$CREDS_FILE"
 fi
 
-# To manually refresh credentials, run:
-# echo "To manually refresh credentials, run: source \$(fetch-github-creds)"
+# "To manually refresh credentials, run: source $(fetch-github-creds)"
 '
 export shellHook
 stdenv='/nix/store/jdix4699q3q17iszzfglhm7wnyz8bg4m-stdenv-darwin'
