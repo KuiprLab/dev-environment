@@ -105,7 +105,7 @@
             coreutils
           ];
           shellHook = ''
-            git secret tell -m 2> /dev/null
+            # git secret tell -m 2> /dev/null
             # Set up environment variables
             export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
