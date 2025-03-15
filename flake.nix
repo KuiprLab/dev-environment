@@ -16,6 +16,7 @@
       in
       {
         devShells.default = pkgs.mkShell {
+                              inheritShellHook = true;
           buildInputs = with pkgs; [
             kubectl
             talosctl
@@ -30,6 +31,8 @@
           ];
 
           shellHook = ''
+            # Preserve the current shell and its settings
+            export SHELL="$SHELL"
             # Set up environment variables
             export KUBECONFIG="$HOME/Developer/Homelab/infra-sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/infra-sol/taloscconfig"
@@ -62,7 +65,7 @@
             echo "- TALOSCONFIG: $TALOSCONFIG"
             if [[ -n "$GITHUB_USERNAME" && -n "$GITHUB_TOKEN" ]]; then
               echo "- GITHUB_USERNAME: $GITHUB_USERNAME (from 1Password)"
-              echo "- GITHUB_TOKEN: ****** (from 1Password)"
+              echo "- GITHUB_TOKEN: $GITHUB_USERNAME (from 1Password)"
             else
               echo "- GITHUB_USERNAME: not set"
               echo "- GITHUB_TOKEN: not set"
