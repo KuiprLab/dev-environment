@@ -1,0 +1,5 @@
+.gitsecret/keys/random_seed
+!*.secret
+talos/sol/controlplane.yaml
+talos/sol/talosconfig
+talos/sol/worker.yaml
