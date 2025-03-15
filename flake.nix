@@ -82,6 +82,11 @@
           # export TALOSCONFIG="$HOME/Developer/Homelab/infra-sol/taloscconfig"
           talosctl "$@"
         '';
+
+
+        k9sWrapper = pkgs.writeShellScriptBin "kk" ''
+          k9s "$@"
+          '';
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
@@ -100,6 +105,7 @@
             kctlWrapper
             talosWrapper
             fetchGitHubCredentials
+            k9sWrapper
 
             # Include timeout utility for credential fetching
             coreutils
