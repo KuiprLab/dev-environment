@@ -1,0 +1,9 @@
+[submodule "homelab"]
+	path = homelab
+	url = https://github.com/KuiprLab/homelab.git
+[submodule "talos-sol"]
+	path = talos-sol
+	url = https://github.com/KuiprLab/talos-sol.git
+[submodule "app-hello-world"]
+	path = app-hello-world
+	url = https://github.com/KuiprLab/app-hello-world.git
