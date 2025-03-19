@@ -44,6 +44,7 @@
             kubectl
             talosctl
             fluxcd
+python313Packages.urwid
 
             # Additional useful tools
             kubernetes-helm
@@ -64,7 +65,6 @@
           shellHook = ''
             # git secret tell -m 2> /dev/null
             # Set up environment variables
-            source ./scripts/talosctl.zsh
             export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
 
