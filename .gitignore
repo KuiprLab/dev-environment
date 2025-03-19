@@ -4,3 +4,4 @@ talos/sol/controlplane.yaml
 talos/sol/talosconfig
 talos/sol/worker.yaml
 talos/sol/kubeconfig
+.direnv

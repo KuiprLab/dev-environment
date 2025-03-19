@@ -21,55 +21,6 @@
 
 
         # Create a script to fetch GitHub credentials with a timeout
-        fetchGitHubCredentials = pkgs.writeShellScriptBin "fetch-github-creds" ''
-          #!/usr/bin/env bash
-
-          # Cache file for GitHub credentials
-          CREDS_CACHE="$HOME/.cache/kube-dev-shell/github-creds"
-          mkdir -p "$(dirname "$CREDS_CACHE")"
-
-          # Check if cache exists and is less than 24 hours old
-          if [[ -f "$CREDS_CACHE" ]] && [[ $(find "$CREDS_CACHE" -mtime -1 2>/dev/null) ]]; then
-            # echo "Using cached GitHub credentials..." >&2
-          echo ""
-          else
-            echo "Fetching GitHub credentials from 1Password..." >&2
-
-            # Use timeout to prevent hanging
-            if command -v op &>/dev/null; then
-              # Get credentials with a timeout of 5 seconds
-              if timeout 5 op account list &>/dev/null; then
-                username=$(timeout 5 op item get "GitHub" --fields username 2>/dev/null)
-                token=$(timeout 5 op item get "GitHub" --fields token --reveal 2>/dev/null)
-
-                if [[ -n "$username" && -n "$token" ]]; then
-                  echo "export GITHUB_USERNAME=\"$username\"" > "$CREDS_CACHE"
-                  echo "export GITHUB_TOKEN=\"$token\"" >> "$CREDS_CACHE"
-                  chmod 600 "$CREDS_CACHE"
-                else
-                  echo "⚠️  Failed to retrieve GitHub credentials from 1Password" >&2
-                  echo "export GITHUB_USERNAME=\"\"" > "$CREDS_CACHE"
-                  echo "export GITHUB_TOKEN=\"\"" >> "$CREDS_CACHE"
-                  chmod 600 "$CREDS_CACHE"
-                fi
-              else
-                echo "⚠️  Not signed in to 1Password or timed out. Run 'op signin' first." >&2
-                echo "export GITHUB_USERNAME=\"\"" > "$CREDS_CACHE"
-                echo "export GITHUB_TOKEN=\"\"" >> "$CREDS_CACHE"
-                chmod 600 "$CREDS_CACHE"
-              fi
-            else
-              echo "⚠️  1Password CLI not found in PATH" >&2
-              echo "export GITHUB_USERNAME=\"\"" > "$CREDS_CACHE"
-              echo "export GITHUB_TOKEN=\"\"" >> "$CREDS_CACHE"
-              chmod 600 "$CREDS_CACHE"
-            fi
-          fi
-
-          # Output the cache file path
-          echo "$CREDS_CACHE"
-        '';
-
         kctlWrapper = pkgs.writeShellScriptBin "k" ''
           #!/usr/bin/env bash
           # export KUBECONFIG="$HOME/Developer/Homelab/infra-sol/kubeconfig"
@@ -104,7 +55,6 @@
             # Include our credential fetching script
             kctlWrapper
             talosWrapper
-            fetchGitHubCredentials
             k9sWrapper
 
 
@@ -114,21 +64,10 @@
           shellHook = ''
             # git secret tell -m 2> /dev/null
             # Set up environment variables
+            source ./scripts/talosctl.zsh
             export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
 
-            # Initialize credential variables
-            export GITHUB_USERNAME=""
-            export GITHUB_TOKEN=""
-
-            # Get credentials without blocking
-            # This runs in the background and completes before displaying info
-            CREDS_FILE=$(fetch-github-creds)
-            if [[ -f "$CREDS_FILE" ]]; then
-              source "$CREDS_FILE"
-            fi
-
-            # "To manually refresh credentials, run: source $(fetch-github-creds)"
           '';
         };
       }
