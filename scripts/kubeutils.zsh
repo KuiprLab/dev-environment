@@ -20,8 +20,3 @@ klogs() {
 
     kubectl logs -n "$selected_namespace" "$selected_pod" -f
 }
-
-
-kls() {
-    kubectl get pods -A --watch
-}
