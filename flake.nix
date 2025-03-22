@@ -51,6 +51,9 @@
                         kubectx
                         jq
                         yq-go
+                        fzf
+                        git-secret
+                       _1password-cli
 
                         # Include our credential fetching script
                         kctlWrapper
