@@ -24,7 +24,7 @@
                 kctlWrapper = pkgs.writeShellScriptBin "k" ''
           #!/usr/bin/env bash
           # export KUBECONFIG="$HOME/Developer/Homelab/infra-sol/kubeconfig"
-          kubectl "$@"
+          kubecolor "$@"
           '';
 
           # Create talosctl wrapper to ensure it uses correct config
@@ -35,9 +35,27 @@
           '';
 
 
-          k9sWrapper = pkgs.writeShellScriptBin "kk" ''
-          k9s "$@"
+         fluxstat = pkgs.writeShellScriptBin "fls" ''
+             watch flux get all -A
           '';
+
+
+         klogs = pkgs.writeShellScriptBin "klogs" ''
+
+          pods=$(kubectl get pods -A --no-headers)
+          selected_pod=$(echo "$pods" | awk '{print $2}' | fzf \
+              --prompt="Loading Pods..." \
+              --border-label="Select Pod" \
+              --bind "load:change-prompt: " \
+              --color=label:bold:blue \
+              --border \
+              --preview "echo '$pods' | grep '{1}' | awk '{print \"Namespace: \" \$1 \"\nName: \" \$2 \"\nStatus: \" \$4 \"\nAge: \" \$6 }'" )
+
+          selected_namespace=$(echo "$pods" | grep "$selected_pod" | awk '{print $1}')
+          kubectl logs -n "$selected_namespace" "$selected_pod" -f
+          '';
+
+
             in {
                 devShells.default = pkgs.mkShell {
                     packages = with pkgs; [
@@ -54,22 +72,22 @@
                         fzf
                         git-secret
                        _1password-cli
+                        watch
+                        kubecolor
 
                         # Include our credential fetching script
                         kctlWrapper
                         talosWrapper
-                        k9sWrapper
-
+                        fluxstat
+                        klogs
 
                         # Include timeout utility for credential fetching
                         coreutils
                     ];
                     shellHook = ''
-            # git secret tell -m 2> /dev/null
-            # Set up environment variables
             export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
-
+            . <(flux completion zsh)
                     '';
                 };
             }
