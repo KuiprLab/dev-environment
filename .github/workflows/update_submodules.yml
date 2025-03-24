@@ -8,6 +8,15 @@ on:
   
   # Allow manual triggering of the workflow
   workflow_dispatch:
+    inputs:
+      git_username:
+        description: 'Git username for commit (optional)'
+        required: false
+        default: 'GitHub Submodule Update Bot'
+      git_email:
+        description: 'Git email for commit (optional)'
+        required: false
+        default: 'action@github.com'
 
 jobs:
   update-submodules:
@@ -27,11 +36,13 @@ jobs:
         fetch-depth: 0
         # Fetch submodules (recursive to handle nested submodules)
         submodules: recursive
+        # Use a token with full repository access
+        token: ${{ secrets.FULL_ACCESS_TOKEN }}
 
     - name: Configure Git
       run: |
-        git config --global user.name 'GitHub Submodule Update Bot'
-        git config --global user.email 'action@github.com'
+        git config --global user.name '${{ inputs.git_username || 'GitHub Submodule Update Bot' }}'
+        git config --global user.email '${{ inputs.git_email || 'action@github.com' }}'
 
     - name: Update Submodules
       run: |
@@ -51,7 +62,8 @@ jobs:
     - name: Create Pull Request
       if: steps.check_changes.outputs.changes_detected == 'true'
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Use the full access token for PR creation
+        GITHUB_TOKEN: ${{ secrets.FULL_ACCESS_TOKEN }}
       run: |
         # Create a new branch for submodule updates
         branch_name="update-submodules-$(date +"%Y%m%d-%H%M%S")"
