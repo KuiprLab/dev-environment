@@ -23,10 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      # Required to create and push to a new branch
+      # Full write permissions to the repository
       contents: write
-      # Required to create pull requests
-      pull-requests: write
 
     steps:
     - name: Checkout repository
@@ -49,39 +47,18 @@ jobs:
         # Update each submodule to its latest commit on its default branch
         git submodule update --remote --recursive
 
-    - name: Check for Changes
-      id: check_changes
+    - name: Commit and Push Changes
       run: |
-        # Check if there are any changes in the submodules
+        # Check if there are any changes
         if [[ -n "$(git status --porcelain)" ]]; then
-          echo "changes_detected=true" >> $GITHUB_OUTPUT
+          # Stage all changes
+          git add .
+          
+          # Commit changes
+          git commit -m "Update submodules to latest versions"
+          
+          # Push directly to the default branch
+          git push origin HEAD:${{ github.event.repository.default_branch }}
         else
-          echo "changes_detected=false" >> $GITHUB_OUTPUT
+          echo "No submodule updates found"
         fi
-
-    - name: Create Pull Request
-      if: steps.check_changes.outputs.changes_detected == 'true'
-      env:
-        # Use the full access token for PR creation
-        GITHUB_TOKEN: ${{ secrets.FULL_ACCESS_TOKEN }}
-      run: |
-        # Create a new branch for submodule updates
-        branch_name="update-submodules-$(date +"%Y%m%d-%H%M%S")"
-        git checkout -b "$branch_name"
-        
-        # Stage and commit submodule changes
-        git add .
-        git commit -m "Update all submodules to latest versions"
-        
-        # Push the new branch
-        git push origin "$branch_name"
-        
-        # Create a pull request
-        gh pr create \
-          --base "${{ github.event.repository.default_branch }}" \
-          --head "$branch_name" \
-          --title "Update Submodules" \
-          --body "Automated update of all Git submodules to their latest versions.
-          This PR contains the following updates:
-          $(git diff --name-only HEAD^ HEAD | grep '.gitmodules\|modules' | sed 's/^/- /')
-          Please review the changes and merge if appropriate."
