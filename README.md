@@ -12,6 +12,7 @@ This repository contains the configuration and tools needed to manage a complete
 
 - [Nix](https://nixos.org/download.html) with flakes enabled
 - [direnv](https://direnv.net/) for automatic environment activation
+- [1Password](https://1password.com/) for secrets management
 - Git
 
 ### ⚡ Quick Start
