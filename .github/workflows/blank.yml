@@ -1,0 +1,75 @@
+name: Update Submodules
+
+on:
+  # Run this workflow every 12 hours
+  schedule:
+    # This cron job runs at 00:00 and 12:00 UTC every day
+    - cron: '0 0,12 * * *'
+  
+  # Allow manual triggering of the workflow
+  workflow_dispatch:
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      # Required to create and push to a new branch
+      contents: write
+      # Required to create pull requests
+      pull-requests: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch all history for all branches and tags
+        fetch-depth: 0
+        # Fetch submodules (recursive to handle nested submodules)
+        submodules: recursive
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'GitHub Submodule Update Bot'
+        git config --global user.email 'action@github.com'
+
+    - name: Update Submodules
+      run: |
+        # Update each submodule to its latest commit on its default branch
+        git submodule update --remote --recursive
+
+    - name: Check for Changes
+      id: check_changes
+      run: |
+        # Check if there are any changes in the submodules
+        if [[ -n "$(git status --porcelain)" ]]; then
+          echo "changes_detected=true" >> $GITHUB_OUTPUT
+        else
+          echo "changes_detected=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create Pull Request
+      if: steps.check_changes.outputs.changes_detected == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Create a new branch for submodule updates
+        branch_name="update-submodules-$(date +"%Y%m%d-%H%M%S")"
+        git checkout -b "$branch_name"
+        
+        # Stage and commit submodule changes
+        git add .
+        git commit -m "Update all submodules to latest versions"
+        
+        # Push the new branch
+        git push origin "$branch_name"
+        
+        # Create a pull request
+        gh pr create \
+          --base "${{ github.event.repository.default_branch }}" \
+          --head "$branch_name" \
+          --title "Update Submodules" \
+          --body "Automated update of all Git submodules to their latest versions.
+          This PR contains the following updates:
+          $(git diff --name-only HEAD^ HEAD | grep '.gitmodules\|modules' | sed 's/^/- /')
+          Please review the changes and merge if appropriate."
