@@ -12,8 +12,6 @@ This repository contains the configuration and tools needed to manage a complete
 
 - [Nix](https://nixos.org/download.html) with flakes enabled
 - [direnv](https://direnv.net/) for automatic environment activation
-- [1Password CLI](https://1password.com/downloads/command-line/) installed and configured
-- [git-secrets](https://github.com/awslabs/git-secrets) for managing sensitive files
 - Git
 
 ### ⚡ Quick Start
