@@ -74,6 +74,7 @@
                        _1password-cli
                         watch
                         kubecolor
+                        fluxcd
 
                         # Include our credential fetching script
                         kctlWrapper
