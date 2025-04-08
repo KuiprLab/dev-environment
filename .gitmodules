@@ -10,3 +10,6 @@
 [submodule "apps/app-hello-world"]
 	path = apps/app-hello-world
 	url = https://github.com/KuiprLab/app-hello-world.git
+[submodule "fleet.nix"]
+	path = fleet.nix
+	url = https://github.com/KuiprLab/fleet.nix.git
