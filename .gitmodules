@@ -13,3 +13,6 @@
 [submodule "fleet.nix"]
 	path = fleet.nix
 	url = https://github.com/KuiprLab/fleet.nix.git
+[submodule "he-srv-centauri.nix"]
+	path = he-srv-centauri.nix
+	url = https://github.com/KuiprLab/he-srv-centauri.nix.git

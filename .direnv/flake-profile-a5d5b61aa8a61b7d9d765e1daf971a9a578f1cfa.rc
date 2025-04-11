@@ -43,7 +43,7 @@ NIX_CC='/nix/store/5qawh29l2yhzj0l9a7ybbb3nzwkpis4a-clang-wrapper-19.1.7'
 export NIX_CC
 NIX_CC_WRAPPER_TARGET_HOST_aarch64_apple_darwin='1'
 export NIX_CC_WRAPPER_TARGET_HOST_aarch64_apple_darwin
-NIX_CFLAGS_COMPILE=' -frandom-seed=ca4b5033i2 -isystem /nix/store/haxb6i05p1ganzinkzk3xib7d8zg2zzd-jq-1.7.1-dev/include -isystem /nix/store/w9v3pg4gh8c9fwpm4g093w1awddw9n8h-libcxx-19.1.7-dev/include -isystem /nix/store/y5i8vcl2gpx6rjxcwmjwffrjvsf7g5gy-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/j57f2k37j99zypb8ilx576xgifm7q12h-libiconv-109-dev/include -isystem /nix/store/yndqbil329i51gqh9whzc5v2gsprbr1v-libresolv-83-dev/include -isystem /nix/store/scim78wb47y8sm3b5z01jq08g53cj78l-libsbuf-14.1.0-dev/include -isystem /nix/store/4njvhgcdm480224mh6yalh6mcf3nqx83-cups-headers-2.4.11/include -isystem /nix/store/haxb6i05p1ganzinkzk3xib7d8zg2zzd-jq-1.7.1-dev/include -isystem /nix/store/w9v3pg4gh8c9fwpm4g093w1awddw9n8h-libcxx-19.1.7-dev/include -isystem /nix/store/y5i8vcl2gpx6rjxcwmjwffrjvsf7g5gy-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/j57f2k37j99zypb8ilx576xgifm7q12h-libiconv-109-dev/include -isystem /nix/store/yndqbil329i51gqh9whzc5v2gsprbr1v-libresolv-83-dev/include -isystem /nix/store/scim78wb47y8sm3b5z01jq08g53cj78l-libsbuf-14.1.0-dev/include -isystem /nix/store/4njvhgcdm480224mh6yalh6mcf3nqx83-cups-headers-2.4.11/include'
+NIX_CFLAGS_COMPILE=' -frandom-seed=y1fflr2dnc -isystem /nix/store/haxb6i05p1ganzinkzk3xib7d8zg2zzd-jq-1.7.1-dev/include -isystem /nix/store/w9v3pg4gh8c9fwpm4g093w1awddw9n8h-libcxx-19.1.7-dev/include -isystem /nix/store/y5i8vcl2gpx6rjxcwmjwffrjvsf7g5gy-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/j57f2k37j99zypb8ilx576xgifm7q12h-libiconv-109-dev/include -isystem /nix/store/yndqbil329i51gqh9whzc5v2gsprbr1v-libresolv-83-dev/include -isystem /nix/store/scim78wb47y8sm3b5z01jq08g53cj78l-libsbuf-14.1.0-dev/include -isystem /nix/store/4njvhgcdm480224mh6yalh6mcf3nqx83-cups-headers-2.4.11/include -isystem /nix/store/haxb6i05p1ganzinkzk3xib7d8zg2zzd-jq-1.7.1-dev/include -isystem /nix/store/w9v3pg4gh8c9fwpm4g093w1awddw9n8h-libcxx-19.1.7-dev/include -isystem /nix/store/y5i8vcl2gpx6rjxcwmjwffrjvsf7g5gy-compiler-rt-libc-19.1.7-dev/include -isystem /nix/store/j57f2k37j99zypb8ilx576xgifm7q12h-libiconv-109-dev/include -isystem /nix/store/yndqbil329i51gqh9whzc5v2gsprbr1v-libresolv-83-dev/include -isystem /nix/store/scim78wb47y8sm3b5z01jq08g53cj78l-libsbuf-14.1.0-dev/include -isystem /nix/store/4njvhgcdm480224mh6yalh6mcf3nqx83-cups-headers-2.4.11/include'
 export NIX_CFLAGS_COMPILE
 NIX_DONT_SET_RPATH='1'
 export NIX_DONT_SET_RPATH
@@ -207,7 +207,6 @@ shell='/nix/store/3z1jypscq2ld48kl089ywgwd8ri2rjxq-bash-5.2p37/bin/bash'
 export shell
 shellHook='export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
 export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
-. <(flux completion zsh)
 '
 export shellHook
 stdenv='/nix/store/hjih3ih7wdq3cgqrlz3ry6dnbdjn04qv-stdenv-darwin'
