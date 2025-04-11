@@ -88,7 +88,6 @@
                     shellHook = ''
             export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
             export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
-            . <(flux completion zsh)
                     '';
                 };
             }
