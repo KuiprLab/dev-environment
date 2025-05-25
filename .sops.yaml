@@ -1,0 +1,6 @@
+creation_rules:
+- path_regex: .*
+  age: age1wdn4pqyjdpa9zts76nrccwgg79nd0jvhldwhuylzxg5qk650a4us5dtghh
+  encrypted_regex: .*
+  key_groups: []
+onepassworditem: op://OpsVault/homelab-age/Private Key

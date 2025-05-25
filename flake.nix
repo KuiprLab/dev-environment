@@ -85,10 +85,27 @@
                         # Include timeout utility for credential fetching
                         coreutils
                     ];
-                    shellHook = ''
-            export KUBECONFIG="$HOME/Developer/Homelab/talos/sol/kubeconfig"
-            export TALOSCONFIG="$HOME/Developer/Homelab/talos/sol/talosconfig"
-                    '';
+shellHook = ''
+  # Check if configs exist and are readable
+  if [[ -f /tmp/kube-configs/kubeconfig && -f /tmp/kube-configs/talosconfig ]]; then
+    export KUBECONFIG="/tmp/kube-configs/kubeconfig"
+    export TALOSCONFIG="/tmp/kube-configs/talosconfig"
+    echo "✓ Using existing configs"
+  else
+    echo "⚠️  Configs not found. Run 'setup-configs' to initialize them."
+    
+    # Create a helper function
+    setup-configs() {
+      echo "Setting up configs..."
+      mkdir -p /tmp/kube-configs
+      opsops read $HOME/Developer/Homelab/talos/sol/kubeconfig > /tmp/kube-configs/kubeconfig
+      opsops read $HOME/Developer/Homelab/talos/sol/talosconfig > /tmp/kube-configs/talosconfig
+      export KUBECONFIG="/tmp/kube-configs/kubeconfig"
+      export TALOSCONFIG="/tmp/kube-configs/talosconfig"
+      echo "✓ Configs loaded"
+    }
+  fi
+'';
                 };
             }
         );
